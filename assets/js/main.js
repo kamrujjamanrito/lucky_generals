@@ -337,170 +337,128 @@
 
 		gsap.config({ nullTargetWarn: false });
 
-		const panels = gsap.utils.toArray(".panel, .horizontal-wrapper");
-		let currentIndex = 0;
-		let isScrolling = false;
-		let scrollEnabled = true;
-		let sliderActive = false;
-		let horizontalWheelLock = false;
+const panels = gsap.utils.toArray(".panel");
+let currentIndex = 0;
+let isScrolling = false;
+let scrollEnabled = true;
 
-		function setPanelHeights() {
-			const viewportHeight = window.innerHeight;
-			panels.forEach((panel) => {
-				const contentHeight = panel.scrollHeight;
-				panel.style.minHeight = Math.max(viewportHeight, contentHeight) + "px";
-			});
-		}
+/* ---------------------------------------
+   SET PANEL HEIGHTS
+---------------------------------------- */
+function setPanelHeights() {
+    const viewportHeight = window.innerHeight;
+    panels.forEach((panel) => {
+        const contentHeight = panel.scrollHeight;
+        panel.style.minHeight = Math.max(viewportHeight, contentHeight) + "px";
+    });
+}
+setPanelHeights();
+window.addEventListener("resize", setPanelHeights);
+window.addEventListener("orientationchange", setPanelHeights);
 
-		// Initial setup
-		setPanelHeights();
-		window.addEventListener("resize", setPanelHeights);
-		window.addEventListener("orientationchange", setPanelHeights);
+/* ---------------------------------------
+   SCROLL SMOOTHER
+---------------------------------------- */
+const smoother = ScrollSmoother.create({
+    wrapper: ".page-wrapper",
+    content: ".panel-wrapper",
+    smooth: 0.8,
+    effects: true,
+});
 
-		const smoother = ScrollSmoother.create({
-			wrapper: ".page-wrapper",
-			content: ".panel-wrapper",
-			smooth: 0.8,
-			effects: true,
-		});
+/* ---------------------------------------
+   SCROLL TO PANEL (FULL SECTION SNAP, NO BLINK)
+---------------------------------------- */
+function scrollToPanel(index) {
+    index = Math.max(0, Math.min(index, panels.length - 1));
+    if (currentIndex === index) return;
 
-		// Smooth scroll to panel
-		function scrollToPanel(index) {
-			index = Math.max(0, Math.min(index, panels.length - 1));
-			if (currentIndex === index) return;
+    isScrolling = true;
 
-			isScrolling = true;
+    gsap.to(window, {
+        scrollTo: { y: panels[index], autoKill: false },
+        duration: 0.8,
+        ease: "power2.inOut",
+        onComplete: () => {
+            isScrolling = false;
+            currentIndex = index;
+        }
+    });
+}
 
-			gsap.to(window, {
-				scrollTo: { y: panels[index], autoKill: false },
-				duration: 0.8,
-				ease: "power2.inOut",
-				onComplete: () => {
-					isScrolling = false;
-					currentIndex = index;
+/* ---------------------------------------
+   SYNC CURRENT PANEL WHEN USER DRAGS SCROLLBAR
+---------------------------------------- */
+function syncPanelFromScroll() {
+    if (isScrolling) return;
 
-					// Pause vertical scroll on horizontal-wrapper
-					if (panels[currentIndex].classList.contains("horizontal-wrapper")) {
-						scrollEnabled = false;
-						sliderActive = true;
-					} else {
-						scrollEnabled = true;
-						sliderActive = false;
-					}
-				},
-			});
-		}
+    let scrollPos = window.scrollY;
 
-		let accumulatedDelta = 0;
-		const horizontalWrapper = document.querySelector(".horizontal-wrapper");
+    for (let i = 0; i < panels.length; i++) {
+        const top = panels[i].offsetTop;
+        const bottom = top + panels[i].offsetHeight;
 
-		// Handle wheel scrolling
-		window.addEventListener(
-			"wheel",
-			function (e) {
-				const delta = e.deltaY;
+        if (scrollPos >= top && scrollPos < bottom) {
+            currentIndex = i;
+            break;
+        }
+    }
+}
+ScrollTrigger.addEventListener("refresh", syncPanelFromScroll);
+ScrollTrigger.addEventListener("scrollEnd", syncPanelFromScroll);
 
-				// Handle horizontal slider wheel
-				if (
-					horizontalWrapper &&
-					horizontalWrapper.contains(e.target) &&
-					sliderActive
-				) {
-					e.preventDefault();
+/* ---------------------------------------
+   IMPROVED WHEEL HANDLING
+   - Accumulate for small scrolls
+   - Fast flick detection
+---------------------------------------- */
+let accumulatedDelta = 0;
+let lastWheelTime = 0;
 
-					if (horizontalWheelLock) return; // skip if locked
-					horizontalWheelLock = true; // lock immediately
+window.addEventListener(
+    "wheel",
+    function (e) {
+        if (isScrolling) return;
 
-					if (delta > 0) {
-						if (horizontalSlider.isEnd) {
-							// If at last slide, release vertical scroll
-							sliderActive = false;
-							scrollEnabled = true;
-							scrollToPanel(currentIndex + 1);
-						} else {
-							horizontalSlider.slideNext();
-						}
-					} else if (delta < 0) {
-						if (horizontalSlider.activeIndex === 0) {
-							// If at first slide, allow vertical scroll up
-							sliderActive = false;
-							scrollEnabled = true;
-							scrollToPanel(currentIndex - 1);
-						} else {
-							horizontalSlider.slidePrev();
-						}
-					}
+        const delta = e.deltaY;
+        const now = Date.now();
+        const rapid = now - lastWheelTime < 180; // fast flick detection
+        lastWheelTime = now;
 
-					// Unlock after transition
-					setTimeout(() => {
-						horizontalWheelLock = false;
-					}, 400); // slightly longer than slide speed
-					return;
-				}
+        e.preventDefault();
 
-				if (!scrollEnabled) return;
+        // FAST FLICK → instantly move
+        if (rapid || Math.abs(delta) > 30) {
+            if (delta > 0) scrollToPanel(currentIndex + 1);
+            else scrollToPanel(currentIndex - 1);
+            accumulatedDelta = 0;
+            return;
+        }
 
-				e.preventDefault();
-				if (isScrolling) return;
+        // SLOW WHEEL → accumulate
+        accumulatedDelta += delta;
 
-				accumulatedDelta += delta;
+        if (accumulatedDelta >= 60) {
+            scrollToPanel(currentIndex + 1);
+            accumulatedDelta = 0;
+        } else if (accumulatedDelta <= -60) {
+            scrollToPanel(currentIndex - 1);
+            accumulatedDelta = 0;
+        }
+    },
+    { passive: false }
+);
 
-				if (accumulatedDelta >= 50) {
-					scrollToPanel(currentIndex + 1);
-					accumulatedDelta = 0;
-				} else if (accumulatedDelta <= -50) {
-					scrollToPanel(currentIndex - 1);
-					accumulatedDelta = 0;
-				}
-			},
-			{ passive: false }
-		);
+/* ---------------------------------------
+   KEYBOARD SCROLL HANDLING
+---------------------------------------- */
+window.addEventListener("keydown", function (e) {
+    if (isScrolling) return;
 
-		// Keyboard arrows
-		window.addEventListener("keydown", function (e) {
-			if (!scrollEnabled || isScrolling) return;
+    if (e.key === "ArrowDown") scrollToPanel(currentIndex + 1);
+    if (e.key === "ArrowUp") scrollToPanel(currentIndex - 1);
+});
 
-			if (e.key === "ArrowDown") scrollToPanel(currentIndex + 1);
-			if (e.key === "ArrowUp") scrollToPanel(currentIndex - 1);
-		});
-
-		// ================= Horizontal Swiper Control =================
-		if (horizontalWrapper) {
-			var horizontalSlider = new Swiper(".horizontal-slider", {
-				loop: false,
-				speed: 800,
-				slidesPerView: 1,
-				slidesPerGroup: 1,
-				spaceBetween: 0,
-				mousewheel: false, // handled manually
-				parallax: true,
-				navigation: {
-					nextEl: ".next-testimonial",
-					prevEl: ".prev-testimonial",
-				},
-			});
-
-			// Vertical scroll resumes after reaching end
-			horizontalSlider.on("reachEnd", () => {
-				// don't automatically scroll; wheel handler will handle
-				sliderActive = true;
-				scrollEnabled = false;
-			});
-
-			// Lock vertical scroll during slide transition
-			horizontalSlider.on("slideChangeTransitionStart", () => {
-				sliderActive = true;
-				scrollEnabled = false;
-			});
-
-			horizontalSlider.on("slideChangeTransitionEnd", () => {
-				// Allow vertical scroll if slider is at the first or last slide
-				if (horizontalSlider.activeIndex === 0 || horizontalSlider.isEnd) {
-					sliderActive = false;
-					scrollEnabled = true;
-				}
-			});
-		}
 
 		// ===================== Panel Animations =====================
 
@@ -665,6 +623,31 @@
 				start: "top center",
 				onEnter: () => gsap.to(".drf", { autoAlpha: 0, duration: 0.4 }),
 				onLeaveBack: () => gsap.to(".drf", { autoAlpha: 1, duration: 0.4 }),
+			});
+
+			const drf = document.querySelector(".drf");
+			const lastPanel = document.querySelector("#lastPanel");
+
+			drf.addEventListener("click", (e) => {
+				e.preventDefault(); // stop anchor behavior
+
+				const lastIndex = panels.length - 1;
+
+				// update index so your snapping system stays synced
+				currentIndex = lastIndex;
+
+				// smooth scroll via GSAP
+				gsap.to(window, {
+					scrollTo: { y: lastPanel, autoKill: false },
+					duration: 1.2,
+					ease: "power3.out",
+					onComplete() {
+						// make scrolling fully re-enabled
+						isScrolling = false;
+						scrollEnabled = true;
+						sliderActive = false;
+					},
+				});
 			});
 		}
 
