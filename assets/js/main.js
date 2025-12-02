@@ -659,17 +659,6 @@
 			});
 		}
 
-		if ($(".panel-six").length > 0) {
-		ScrollTrigger.create({
-			trigger: ".panel-six",
-			start: "top center",
-			onEnter: () => gsap.to(".drf", { autoAlpha: 0, duration: 0.4 }),
-			onLeaveBack: () => gsap.to(".drf", { autoAlpha: 1, duration: 0.4 }),
-		});
-
-		
-	}
-
 		// ===================== Horizontal Slider =====================
 
 		// Reset scroll on reload
