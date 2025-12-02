@@ -340,9 +340,9 @@
 		const panels = gsap.utils.toArray(".panel, .horizontal-wrapper");
 		let currentIndex = 0;
 		let isScrolling = false;
-		let scrollEnabled = true; // controls vertical scroll
-		let sliderActive = false; // vertical scroll paused during horizontal slider
-		let horizontalWheelLock = false; // prevents multiple slide jumps per wheel
+		let scrollEnabled = true;
+		let sliderActive = false;
+		let horizontalWheelLock = false;
 
 		function setPanelHeights() {
 			const viewportHeight = window.innerHeight;
@@ -629,8 +629,8 @@
 
 		if ($(".panel-three").length > 0) {
 			const refirstTitle = document.querySelector(".stick-top");
-			let reoffset = window.innerHeight * 0.27;
-			let retargetScale = window.innerWidth < 992 ? 0.5 : 0.2;
+			let reoffset = window.innerHeight * 0.3;
+			let retargetScale = window.innerWidth < 992 ? 0.7 : 0.2;
 
 			ScrollTrigger.create({
 				trigger: ".panel-three",
@@ -659,11 +659,22 @@
 			});
 		}
 
+		if ($(".panel-six").length > 0) {
+		ScrollTrigger.create({
+			trigger: ".panel-six",
+			start: "top center",
+			onEnter: () => gsap.to(".drf", { autoAlpha: 0, duration: 0.4 }),
+			onLeaveBack: () => gsap.to(".drf", { autoAlpha: 1, duration: 0.4 }),
+		});
+
+		
+	}
+
 		// ===================== Horizontal Slider =====================
 
 		// Reset scroll on reload
-		// $(window).on("beforeunload", function () {
-		// 	$(window).scrollTop(0);
-		// });
+		$(window).on("beforeunload", function () {
+			$(window).scrollTop(0);
+		});
 	});
 })(jQuery);

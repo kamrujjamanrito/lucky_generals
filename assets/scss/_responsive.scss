@@ -148,7 +148,7 @@
 }
 
 .panel__inner {
-  padding-block: 100px;
+  padding-block: 40px;
   padding-inline: 20px;
   text-align: center;
   width: 100%;
@@ -165,8 +165,6 @@
 }
 
 .horizontal-wrapper {
-
-
   .swiper-wrapper {
     width: 100%;
     height: 100%;
@@ -248,8 +246,15 @@
     }
 
     @media only screen and (max-width: 576px) {
-      font-size: 5.5rem;
+      font-size: 8rem;
+      line-height: 1;
       letter-spacing: 0px;
+    }
+  }
+
+  .bgh {
+    @media only screen and (max-width: 576px) {
+      font-size: 9rem;
     }
   }
 }
@@ -257,6 +262,7 @@
 
 .panel-five {
   padding-block-start: 40px !important;
+
   h1 {
     font-size: 4.5rem;
     font-weight: 400;
@@ -272,7 +278,8 @@
     }
 
     @media only screen and (max-width: 576px) {
-      font-size: 5.5rem;
+      font-size: 6rem;
+      line-height: 1;
       letter-spacing: 0px;
     }
   }
@@ -294,9 +301,89 @@
 }
 
 .panel-six {
+  padding-block-end: 20px !important;
+
   p {
     font-size: 2rem;
     font-weight: 500;
     line-height: 0.95;
+
+    @media only screen and (max-width: 991px) {
+      font-size: 5rem;
+      line-height: 1;
+    }
   }
+
+  .sticky-line {
+    gap: 2.5rem;
+  }
+}
+
+.prt {
+  padding-top: 160px !important;
+
+  @media only screen and (max-width: 991px) {
+    padding-top: 100px !important;
+  }
+}
+
+.stick-c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  h2 {
+    font-size: 6.25rem;
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -2.5px;
+
+    @media only screen and (max-width: 991px) {
+      letter-spacing: -1px;
+    }
+
+    @media only screen and (max-width: 576px) {
+      font-size: 7rem;
+      letter-spacing: 0px;
+    }
+  }
+}
+
+.drf {
+  position: fixed;
+  top: 5rem;
+  right: 8.75rem;
+  z-index: 99;
+
+  @media only screen and (max-width: 991px) {
+    top: 8rem;
+    right: 11rem;
+  }
+
+  img {
+    max-width: 15rem;
+  }
+
+}
+
+.ert {
+  img {
+    max-width: 15rem;
+  }
+}
+
+#fullPanel {
+   position: fixed;
+   top: 100%;
+   left: 0;
+   width: 100%;
+   height: 100vh;
+   z-index: 9999;
+   background: #000; /* or white */
+   overflow-y: auto;
+}
+#fullPanel.active {
+   pointer-events: auto;
 }
