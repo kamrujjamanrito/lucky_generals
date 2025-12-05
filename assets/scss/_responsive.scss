@@ -1,7 +1,5 @@
-@media only screen and (min-width: 576px) {}
-
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
@@ -9,7 +7,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
@@ -17,7 +15,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
@@ -25,7 +23,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-CondensedBlack.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
@@ -33,7 +31,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-CondensedBold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
@@ -41,7 +39,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
@@ -49,7 +47,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
@@ -57,7 +55,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
@@ -65,7 +63,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
@@ -73,7 +71,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
@@ -81,7 +79,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
@@ -89,7 +87,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-ThinItalic.ttf") format("truetype");
   font-weight: 100;
   font-style: italic;
@@ -97,7 +95,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-UltraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
@@ -105,7 +103,7 @@
 }
 
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-UltraLightItalic.ttf") format("truetype");
   font-weight: 200;
   font-style: italic;
@@ -128,6 +126,7 @@
   background-clip: text;
   color: transparent;
 }
+
 
 
 .panel-wrapper {
@@ -176,8 +175,9 @@
   .title-animation {
     opacity: 0;
     visibility: hidden;
-    font-size: 15.875rem;
+    font-size: 12.25rem;
     line-height: 0.8;
+    letter-spacing: -2.5px;
 
     &>div {
       background-image: url("../../assets/images/text-bg.jpg");
@@ -190,8 +190,6 @@
       opacity: 0;
       --x: 20%;
       --y: 30%;
-
-
     }
   }
 
@@ -211,7 +209,7 @@
 
 .panel-two {
   h1 {
-    font-size: 4.5rem;
+    font-size: 5.5rem;
     font-weight: 500;
     line-height: 0.8;
     margin-bottom: 3.75rem;
@@ -226,7 +224,8 @@
     }
 
     @media only screen and (max-width: 576px) {
-      font-size: 5.5rem;
+      font-size: 6rem;
+      line-height: 1;
       letter-spacing: 0px;
     }
   }
@@ -246,11 +245,26 @@
 }
 
 .panel-three {
+
   h1 {
-    font-size: 10.938rem;
+    font-size: 9.938rem;
     font-weight: 700;
     line-height: 0.87;
     letter-spacing: -7px;
+
+    @media only screen and (max-width: 991px) {
+      letter-spacing: -1px;
+    }
+
+    @media only screen and (max-width: 576px) {
+      font-size: 8rem;
+      line-height: 1;
+      letter-spacing: 0px;
+    }
+  }
+
+  .dcf {
+    font-size: 9.938rem;
 
     @media only screen and (max-width: 991px) {
       letter-spacing: -1px;
@@ -277,7 +291,7 @@
   h1 {
     font-size: 4.5rem;
     font-weight: 400;
-    line-height: 0.95;
+    line-height: 1;
     letter-spacing: -2.5px;
 
     &:nth-last-of-type(1) {
@@ -336,13 +350,16 @@
     line-height: 0.95;
 
     @media only screen and (max-width: 991px) {
-      font-size: 5rem;
+      font-size: 6rem;
       line-height: 1;
     }
   }
 
   .sticky-line {
     gap: 2.5rem;
+      @media only screen and (max-width: 767px) {
+     gap: 10rem;
+  }
   }
 }
 
@@ -373,6 +390,7 @@
 
     @media only screen and (max-width: 576px) {
       font-size: 7rem;
+      line-height: 1;
       letter-spacing: 0px;
     }
   }
@@ -403,15 +421,15 @@
   }
 
   25% {
-    transform: rotate(90deg) translate(-70px, -30px);
+    transform: rotate(90deg) translate(-4.375rem, -1.875rem);
   }
 
   50% {
-    transform: rotate(180deg) translate(-10px, 40px);
+    transform: rotate(180deg) translate(-0.625rem, 2.5rem);
   }
 
   75% {
-    transform: rotate(270deg) translate(70px, 0px);
+    transform: rotate(270deg) translate(4.375rem, 0px);
   }
 
   100% {
@@ -441,7 +459,35 @@
   font-size: 2.5rem !important;
 
   @media only screen and (max-width: 767px) {
-    font-size: 4rem !important;
+    font-size: 6rem !important;
   }
 
+}
+
+.shimmer-chars {
+  position: relative;
+}
+
+.shimmer-chars>span {
+  background-image: url("../../assets/images/text-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--x) var(--y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.char {
+  opacity: 0.4;
+  transition: opacity 0.2s linear;
+}
+
+.char.active {
+  opacity: 1;
+}
+
+.char.space {
+  background: none !important;
 }

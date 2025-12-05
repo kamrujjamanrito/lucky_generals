@@ -183,6 +183,9 @@ input:focus,
 textarea:focus {
   box-shadow: none;
 }
+input::-moz-placeholder, textarea::-moz-placeholder {
+  color: #ffffff;
+}
 input::placeholder,
 textarea::placeholder {
   color: #ffffff;
@@ -195,7 +198,8 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
-  appearance: textfield;
+  -webkit-appearance: textfield;
+          appearance: textfield;
 }
 
 input[type=checkbox] {
@@ -231,20 +235,6 @@ p {
 
 .round-15 {
   border-radius: 10px !important;
-}
-
-.container {
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.row {
-  margin-left: -10px;
-  margin-right: -10px;
-}
-.row > * {
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 /* ==== 
@@ -377,8 +367,10 @@ img {
   height: auto;
   border: 0px;
   outline: 0px;
-  object-fit: cover;
-  object-position: left top;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: left top;
+     object-position: left top;
 }
 
 i {
@@ -923,6 +915,9 @@ span {
 .input-single .select:focus {
   border-color: var(--primary-color);
 }
+.input-single input::-moz-placeholder, .input-single textarea::-moz-placeholder, .input-single .form__control::-moz-placeholder, .input-single .select::-moz-placeholder {
+  color: #b2b2b2;
+}
 .input-single input::placeholder,
 .input-single textarea::placeholder,
 .input-single .form__control::placeholder,
@@ -980,6 +975,7 @@ span {
 }
 .input-single .iti__dropdown-content {
   width: 100% !important;
+  min-width: -moz-max-content !important;
   min-width: max-content !important;
   border-radius: 12px !important;
   margin-left: 12px !important;
@@ -1114,13 +1110,11 @@ span {
 
 .multiSelect_arrow::before {
   right: 24px;
-  -webkit-transform: rotate(-50deg);
   transform: rotate(-50deg);
 }
 
 .multiSelect_arrow::after {
   right: 19px;
-  -webkit-transform: rotate(50deg);
   transform: rotate(50deg);
 }
 
@@ -1142,12 +1136,8 @@ span {
   border-radius: 4px;
   overflow-x: hidden;
   overflow-y: auto;
-  -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  transition: opacity 0.1s ease, visibility 0.1s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
   transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-  transition: opacity 0.1s ease, visibility 0.1s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-  -webkit-transform: scale(0.8) translate(0, 4px);
   transform: scale(0.8) translate(0, 4px);
   border: 1px solid #d9dbde;
   box-shadow: 0px 10px 20px 0px rgba(0, 0, 0, 0.12);
@@ -1158,7 +1148,6 @@ span {
   margin: 0;
   padding: 0;
   opacity: 0;
-  -webkit-transform: translate(6px, 0);
   transform: translate(6px, 0);
   transition: all 0.15s ease;
 }
@@ -1188,26 +1177,20 @@ span {
 .multiSelect_list.-open {
   opacity: 1;
   visibility: visible;
-  -webkit-transform: scale(1) translate(0, 12px);
   transform: scale(1) translate(0, 12px);
-  transition: opacity 0.15s ease, visibility 0.15s ease, -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
   transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
-  transition: opacity 0.15s ease, visibility 0.15s ease, transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32), -webkit-transform 0.15s cubic-bezier(0.4, 0.6, 0.5, 1.32);
 }
 
 .multiSelect_list.-open + .multiSelect_arrow::before {
-  -webkit-transform: rotate(-130deg);
   transform: rotate(-130deg);
 }
 
 .multiSelect_list.-open + .multiSelect_arrow::after {
-  -webkit-transform: rotate(130deg);
   transform: rotate(130deg);
 }
 
 .multiSelect_list.-open .multiSelect_option {
   opacity: 1;
-  -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
@@ -1715,7 +1698,8 @@ span {
   inset: 0px;
   border-radius: 50px;
   background: hsla(0, 0%, 100%, 0.7);
-  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+          backdrop-filter: blur(8px);
   animation: replace-bg 0.6s ease-in-out;
   transition: background-color 0.15s ease-in-out;
 }
@@ -1838,7 +1822,8 @@ span {
   line-height: 24px;
 }
 .header .megamenu-inner a img {
-  object-fit: contain;
+  -o-object-fit: contain;
+     object-fit: contain;
   width: auto;
   height: auto;
   padding-inline-start: 2px;
@@ -1919,7 +1904,8 @@ span {
 .hero .video-bg video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border: 0px !important;
   outline: 0px !important;
 }
@@ -2096,7 +2082,8 @@ span {
 .project .project__video video {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   min-height: 300px;
   max-height: 600px;
   border-radius: 5px;
@@ -2276,6 +2263,7 @@ span {
   max-width: 27.5rem;
 }
 .plan .plan__output-cta {
+  min-width: -moz-max-content;
   min-width: max-content;
 }
 .plan .plan__content {
@@ -2354,7 +2342,8 @@ span {
   width: 100%;
   height: 100%;
   min-height: 340px;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   border-radius: 30px;
 }
 .success .slider-navigation {
@@ -2455,6 +2444,7 @@ span {
   max-width: 420px;
 }
 .success .success__overview-inner .cta {
+  min-width: -moz-max-content;
   min-width: max-content;
 }
 .success .sc-left {
@@ -2882,98 +2872,98 @@ span {
  --------- (5.10) faq styles end ---------
  ==== */
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue.ttf") format("truetype");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Bold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-BoldItalic.ttf") format("truetype");
   font-weight: 700;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-CondensedBlack.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-CondensedBold.ttf") format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Italic.ttf") format("truetype");
   font-weight: 400;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Light.ttf") format("truetype");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-LightItalic.ttf") format("truetype");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Medium.ttf") format("truetype");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-MediumItalic.ttf") format("truetype");
   font-weight: 500;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-Thin.ttf") format("truetype");
   font-weight: 100;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-ThinItalic.ttf") format("truetype");
   font-weight: 100;
   font-style: italic;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-UltraLight.ttf") format("truetype");
   font-weight: 200;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "Helvetica Neue";
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   src: url("../fonts/HelveticaNeue-UltraLightItalic.ttf") format("truetype");
   font-weight: 200;
   font-style: italic;
@@ -3037,8 +3027,9 @@ span {
 .panel-hero .title-animation {
   opacity: 0;
   visibility: hidden;
-  font-size: 15.875rem;
+  font-size: 12.25rem;
   line-height: 0.8;
+  letter-spacing: -2.5px;
 }
 .panel-hero .title-animation > div {
   background-image: url("../../assets/images/text-bg.jpg");
@@ -3062,7 +3053,7 @@ span {
 }
 
 .panel-two h1 {
-  font-size: 4.5rem;
+  font-size: 5.5rem;
   font-weight: 500;
   line-height: 0.8;
   margin-bottom: 3.75rem;
@@ -3078,7 +3069,8 @@ span {
 }
 @media only screen and (max-width: 576px) {
   .panel-two h1 {
-    font-size: 5.5rem;
+    font-size: 6rem;
+    line-height: 1;
     letter-spacing: 0px;
   }
 }
@@ -3096,7 +3088,7 @@ span {
 }
 
 .panel-three h1 {
-  font-size: 10.938rem;
+  font-size: 9.938rem;
   font-weight: 700;
   line-height: 0.87;
   letter-spacing: -7px;
@@ -3108,6 +3100,21 @@ span {
 }
 @media only screen and (max-width: 576px) {
   .panel-three h1 {
+    font-size: 8rem;
+    line-height: 1;
+    letter-spacing: 0px;
+  }
+}
+.panel-three .dcf {
+  font-size: 9.938rem;
+}
+@media only screen and (max-width: 991px) {
+  .panel-three .dcf {
+    letter-spacing: -1px;
+  }
+}
+@media only screen and (max-width: 576px) {
+  .panel-three .dcf {
     font-size: 8rem;
     line-height: 1;
     letter-spacing: 0px;
@@ -3125,7 +3132,7 @@ span {
 .panel-five h1 {
   font-size: 4.5rem;
   font-weight: 400;
-  line-height: 0.95;
+  line-height: 1;
   letter-spacing: -2.5px;
 }
 .panel-five h1:nth-last-of-type(1) {
@@ -3182,12 +3189,17 @@ span {
 }
 @media only screen and (max-width: 991px) {
   .panel-six p {
-    font-size: 5rem;
+    font-size: 6rem;
     line-height: 1;
   }
 }
 .panel-six .sticky-line {
   gap: 2.5rem;
+}
+@media only screen and (max-width: 767px) {
+  .panel-six .sticky-line {
+    gap: 10rem;
+  }
 }
 
 .prt {
@@ -3220,6 +3232,7 @@ span {
 @media only screen and (max-width: 576px) {
   .stick-c h2 {
     font-size: 7rem;
+    line-height: 1;
     letter-spacing: 0px;
   }
 }
@@ -3247,13 +3260,13 @@ span {
     transform: rotate(0deg) translate(0, 0);
   }
   25% {
-    transform: rotate(90deg) translate(-70px, -30px);
+    transform: rotate(90deg) translate(-4.375rem, -1.875rem);
   }
   50% {
-    transform: rotate(180deg) translate(-10px, 40px);
+    transform: rotate(180deg) translate(-0.625rem, 2.5rem);
   }
   75% {
-    transform: rotate(270deg) translate(70px, 0px);
+    transform: rotate(270deg) translate(4.375rem, 0px);
   }
   100% {
     transform: rotate(360deg) translate(0, 0);
@@ -3280,6 +3293,34 @@ span {
 }
 @media only screen and (max-width: 767px) {
   .drcg {
-    font-size: 4rem !important;
+    font-size: 6rem !important;
   }
 }
+
+.shimmer-chars {
+  position: relative;
+}
+
+.shimmer-chars > span {
+  background-image: url("../../assets/images/text-bg.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: var(--x) var(--y);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  display: inline-block;
+}
+
+.char {
+  opacity: 0.4;
+  transition: opacity 0.2s linear;
+}
+
+.char.active {
+  opacity: 1;
+}
+
+.char.space {
+  background: none !important;
+}/*# sourceMappingURL=main.css.map */
