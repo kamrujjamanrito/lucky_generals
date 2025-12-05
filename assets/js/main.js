@@ -273,53 +273,53 @@
       });
     }
 
-    // shimmer animations
-    if ($(".shimmer-chars").length > 0) {
-      document.addEventListener("DOMContentLoaded", function () {
-        const el = document.querySelector(".shimmer-chars");
-        const text = el.innerText;
-
-        el.innerHTML = text
-          .split("")
-          .map((char) =>
-            char === " "
-              ? `<span class="char space">&nbsp;</span>`
-              : `<span class="char">${char}</span>`
-          )
-          .join("");
-
-        const chars = el.querySelectorAll(".char");
-
-        let index = 0;
-        let isPaused = false;
-
-        function shimmerStep() {
-          if (isPaused) return;
-
-          chars.forEach((c) => c.classList.remove("active"));
-
-          for (let i = 0; i < 3; i++) {
-            chars[(index + i) % chars.length].classList.add("active");
-          }
-
-          index++;
-
-          if (index >= chars.length) {
-            isPaused = true;
-            setTimeout(() => {
-              index = 0;
-              isPaused = false;
-            }, 200);
-          }
-        }
-
-        setInterval(shimmerStep, 80);
-      });
-    }
-
     // Reset scroll on reload
     $(window).on("beforeunload", function () {
       $(window).scrollTop(0);
     });
   });
 })(jQuery);
+
+// shimmer animations
+if ($(".shimmer-chars").length > 0) {
+  document.addEventListener("DOMContentLoaded", function () {
+    const el = document.querySelector(".shimmer-chars");
+    const text = el.innerText;
+
+    el.innerHTML = text
+      .split("")
+      .map((char) =>
+        char === " "
+          ? `<span class="char space">&nbsp;</span>`
+          : `<span class="char">${char}</span>`
+      )
+      .join("");
+
+    const chars = el.querySelectorAll(".char");
+
+    let index = 0;
+    let isPaused = false;
+
+    function shimmerStep() {
+      if (isPaused) return;
+
+      chars.forEach((c) => c.classList.remove("active"));
+
+      for (let i = 0; i < 3; i++) {
+        chars[(index + i) % chars.length].classList.add("active");
+      }
+
+      index++;
+
+      if (index >= chars.length) {
+        isPaused = true;
+        setTimeout(() => {
+          index = 0;
+          isPaused = false;
+        }, 200);
+      }
+    }
+
+    setInterval(shimmerStep, 80);
+  });
+}
