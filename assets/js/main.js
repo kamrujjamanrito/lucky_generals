@@ -42,7 +42,6 @@
       });
     }
 
-    // Initial setup
     setPanelHeights();
     window.addEventListener("resize", setPanelHeights);
     window.addEventListener("orientationchange", setPanelHeights);
@@ -50,11 +49,10 @@
     const smoother = ScrollSmoother.create({
       wrapper: ".page-wrapper",
       content: ".panel-wrapper",
-      smooth: 0.8,
-      effects: true,
+      smooth: 1.5,
+      effects: false,
     });
 
-    // Smooth scroll to a panel
     function scrollToPanel(index) {
       index = Math.max(0, Math.min(index, panels.length - 1));
       if (currentIndex === index) return;
@@ -63,8 +61,8 @@
 
       gsap.to(window, {
         scrollTo: { y: panels[index], autoKill: false },
-        duration: 0.8,
-        ease: "power2.inOut",
+        duration: 1.2,
+        ease: "power2.out",
         onComplete: () => {
           isScrolling = false;
           currentIndex = index;
@@ -94,6 +92,7 @@
       },
       { passive: false }
     );
+
     window.addEventListener("keydown", function (e) {
       if (!scrollEnabled || isScrolling) return;
 
@@ -115,34 +114,35 @@
         end: "top top",
         pin: firstTitle,
         pinSpacing: false,
+        scrub: 1.5,
         onEnter: () => {
           gsap.to(firstTitle, {
             scale: targetScale,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
           gsap.to(secondTitle, {
             scale: 0,
             opacity: 0,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
         },
         onLeaveBack: () => {
           gsap.to(firstTitle, {
             scale: 1,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
           gsap.to(secondTitle, {
             scale: 1,
             opacity: 1,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
         },
         markers: false,
@@ -166,19 +166,19 @@
         tl.to(firstSplit.words, {
           opacity: 1,
           scale: 1,
-          duration: 0.4,
-          ease: "power2.out",
-          stagger: 0.18,
+          duration: 0.8,
+          ease: "power3.out",
+          stagger: 0.2,
         }).to(
           secondSplit.words,
           {
             opacity: 1,
             scale: 1,
-            duration: 0.4,
-            ease: "power2.out",
-            stagger: 0.18,
+            duration: 0.8,
+            ease: "power3.out",
+            stagger: 0.2,
           },
-          "-=0.18"
+          "-=0.2"
         );
       });
     }
@@ -223,20 +223,21 @@
         end: "top top",
         pin: refirstTitle,
         pinSpacing: false,
+        scrub: 1.5,
         onEnter: () => {
           gsap.to(refirstTitle, {
             scale: retargetScale,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
         },
         onLeaveBack: () => {
           gsap.to(refirstTitle, {
             scale: 1,
             transformOrigin: "top center",
-            duration: 0.5,
-            ease: "power2.out",
+            duration: 1.5,
+            ease: "expo.out",
           });
         },
         markers: false,
